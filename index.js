@@ -15,26 +15,50 @@ app.use(cors({ optionsSuccessStatus: 200 })); // some legacy browsers choke on 2
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
 // your first API endpoint...
-app.get('/api/hello', function (req, res) {
+app.get('/api/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
 });
 
 app.get('/api/whoami', (req, res) => {
   const retVal = {
-      "ipaddress": req.ip,
-      "language": req.headers["accept-language"],
-      "software": req.headers["user-agent"]
-      };
+    "ipaddress": req.ip,
+    "language": req.headers["accept-language"],
+    "software": req.headers["user-agent"]
+  };
   console.log(retVal);
   res.json(retVal);
 });
 
+/*
+log of tests by fcc
+{
+  ipaddress: '::ffff:172.31.196.1',
+  language: 'en-US,en;q=0.9',
+  software: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.69'
+}
+{
+  ipaddress: '::ffff:172.31.196.1',
+  language: 'en-US,en;q=0.9',
+  software: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
+}
+{
+  ipaddress: '::ffff:172.31.196.1',
+  language: 'en-US,en;q=0.9',
+  software: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
+}
+{
+  ipaddress: '::ffff:172.31.196.1',
+  language: 'en-US,en;q=0.9',
+  software: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
+}
+*/
+
 // listen for requests :)
-var listener = app.listen(process.env.PORT || 3000, function () {
+var listener = app.listen(process.env.PORT || 3000, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
